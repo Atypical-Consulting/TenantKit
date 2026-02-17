@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>TenantKit.Demo</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\TenantKit.Core\TenantKit.Core.csproj" />
+    <ProjectReference Include="..\..\src\TenantKit.AspNetCore\TenantKit.AspNetCore.csproj" />
+  </ItemGroup>
+
+</Project>

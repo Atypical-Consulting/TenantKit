@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/samples/">
+    <Project Path="samples/TenantKit.Demo/TenantKit.Demo.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/TenantKit.AspNetCore/TenantKit.AspNetCore.csproj" />
+    <Project Path="src/TenantKit.Core/TenantKit.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/TenantKit.Tests/TenantKit.Tests.csproj" />
+  </Folder>
+</Solution>

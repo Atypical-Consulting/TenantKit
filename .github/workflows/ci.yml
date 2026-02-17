@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build — TenantKit.Core
+        run: dotnet build src/TenantKit.Core --configuration Release --no-restore
+
+      - name: Build — TenantKit.AspNetCore
+        run: dotnet build src/TenantKit.AspNetCore --configuration Release --no-restore
+
+      - name: Build — TenantKit.Demo (sample)
+        run: dotnet build samples/TenantKit.Demo --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test --configuration Release --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: '**/TestResults/*.trx'
+
+  pack:
+    name: Pack NuGet packages
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Pack — TenantKit.Core
+        run: dotnet pack src/TenantKit.Core --configuration Release --no-restore --output ./artifacts
+
+      - name: Pack — TenantKit.AspNetCore
+        run: dotnet pack src/TenantKit.AspNetCore --configuration Release --no-restore --output ./artifacts
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuget-packages
+          path: ./artifacts/*.nupkg
