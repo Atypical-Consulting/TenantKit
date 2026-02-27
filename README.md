@@ -10,6 +10,25 @@ Built by [Atypical Consulting](https://atypical.garry-ai.cloud).
 
 ---
 
+## Table of Contents
+
+- [The Problem](#the-problem)
+- [The Solution](#the-solution)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Packages](#packages)
+- [Quick Start](#quick-start)
+- [Available Resolvers](#available-resolvers)
+- [Core Contracts](#core-contracts)
+- [Architecture](#architecture)
+- [Project Structure](#project-structure)
+- [Roadmap](#roadmap)
+- [Stats](#stats)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
+
 ## The Problem
 
 Every .NET SaaS application hits the multi-tenancy wall sooner or later.  
@@ -42,6 +61,37 @@ Then inject `ITenantContext` anywhere:
 app.MapGet("/hello", (ITenantContext ctx) =>
     $"Hello from tenant: {ctx.CurrentTenant?.Name ?? "unknown"}");
 ```
+
+---
+
+## Features
+
+- [x] Header-based tenant resolution (`X-Tenant-Id`)
+- [x] Query string tenant resolution (`?tenantId=`)
+- [x] Subdomain-based tenant resolution
+- [x] JWT/cookie claim-based tenant resolution
+- [x] Route value tenant resolution
+- [x] Composite resolver (try multiple strategies in order)
+- [x] In-memory tenant store
+- [x] Scoped per-request `ITenantContext`
+- [x] Fluent builder API for configuration
+- [x] Custom `ITenantStore` support (bring your own data source)
+- [x] Custom `ITenantResolver` support
+- [x] Typed exceptions (`TenantNotFoundException`, `TenantResolutionException`)
+- [ ] EF Core integration *(planned)*
+- [ ] Redis-backed distributed tenant store *(planned)*
+- [ ] Per-tenant rate limiting *(planned)*
+- [ ] Per-tenant configuration overrides *(planned)*
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Runtime | .NET 10.0 |
+| Framework | ASP.NET Core |
+| Language | C# 13 |
+| Testing | xUnit |
+| CI | GitHub Actions |
 
 ---
 
@@ -210,21 +260,31 @@ TenantKit/
 
 ---
 
-## Why Atypical Consulting?
+## Stats
 
-We build opinionated, production-grade .NET libraries that disappear into your stack.  
-No ceremony. No framework lock-in. Just working software.
-
-→ [atypical.garry-ai.cloud](https://atypical.garry-ai.cloud)
+<!-- Get your hash from https://repobeats.axiom.co -->
+![Alt](https://repobeats.axiom.co/api/embed/TenantKit.svg "Repobeats analytics image")
 
 ---
 
 ## Contributing
 
-Issues and PRs welcome. Please open an issue first for large changes.
+Contributions are welcome! Please open an issue first for large changes.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit using [conventional commits](https://www.conventionalcommits.org/) (`git commit -m 'feat: add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ---
 
 ## License
 
 [MIT](LICENSE) © 2026 [Atypical Consulting](https://atypical.garry-ai.cloud)
+
+---
+
+Built with care by [Atypical Consulting](https://atypical.garry-ai.cloud) — opinionated, production-grade open source.
+
+[![Contributors](https://contrib.rocks/image?repo=Atypical-Consulting/TenantKit)](https://github.com/Atypical-Consulting/TenantKit/graphs/contributors)
