@@ -32,6 +32,9 @@ jobs:
       - name: Build — TenantKit.Demo (sample)
         run: dotnet build samples/TenantKit.Demo --configuration Release --no-restore
 
+      - name: Build — TenantKit.Tests
+        run: dotnet build tests/TenantKit.Tests --configuration Release --no-restore
+
       - name: Test
         run: dotnet test --configuration Release --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
 
