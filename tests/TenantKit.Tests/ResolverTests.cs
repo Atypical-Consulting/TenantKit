@@ -1,4 +1,4 @@
-using FluentAssertions;
+using Shouldly;
 using Microsoft.AspNetCore.Http;
 using TenantKit.AspNetCore.Resolvers;
 using Xunit;
@@ -20,7 +20,7 @@ public sealed class ResolverTests
         var resolver = new HeaderTenantResolver();
         var result = await resolver.ResolveAsync(context);
 
-        result.Should().Be("acme");
+        result.ShouldBe("acme");
     }
 
     [Fact]
@@ -31,7 +31,7 @@ public sealed class ResolverTests
         var resolver = new HeaderTenantResolver();
         var result = await resolver.ResolveAsync(context);
 
-        result.Should().BeNull();
+        result.ShouldBeNull();
     }
 
     [Fact]
@@ -43,7 +43,7 @@ public sealed class ResolverTests
         var resolver = new HeaderTenantResolver("X-My-Tenant");
         var result = await resolver.ResolveAsync(context);
 
-        result.Should().Be("globex");
+        result.ShouldBe("globex");
     }
 
     // ──────────────────────────────────────────────────────────────
@@ -59,7 +59,7 @@ public sealed class ResolverTests
         var resolver = new QueryStringTenantResolver();
         var result = await resolver.ResolveAsync(context);
 
-        result.Should().Be("acme");
+        result.ShouldBe("acme");
     }
 
     [Fact]
@@ -70,7 +70,7 @@ public sealed class ResolverTests
         var resolver = new QueryStringTenantResolver();
         var result = await resolver.ResolveAsync(context);
 
-        result.Should().BeNull();
+        result.ShouldBeNull();
     }
 
     // ──────────────────────────────────────────────────────────────
@@ -86,7 +86,7 @@ public sealed class ResolverTests
         var resolver = new SubdomainTenantResolver();
         var result = await resolver.ResolveAsync(context);
 
-        result.Should().Be("acme");
+        result.ShouldBe("acme");
     }
 
     [Fact]
@@ -98,7 +98,7 @@ public sealed class ResolverTests
         var resolver = new SubdomainTenantResolver();
         var result = await resolver.ResolveAsync(context);
 
-        result.Should().BeNull();
+        result.ShouldBeNull();
     }
 
     [Fact]
@@ -110,7 +110,7 @@ public sealed class ResolverTests
         var resolver = new SubdomainTenantResolver();
         var result = await resolver.ResolveAsync(context);
 
-        result.Should().BeNull();
+        result.ShouldBeNull();
     }
 
     // ──────────────────────────────────────────────────────────────
@@ -132,7 +132,7 @@ public sealed class ResolverTests
 
         var result = await resolver.ResolveAsync(context);
 
-        result.Should().Be("from-header");
+        result.ShouldBe("from-header");
     }
 
     [Fact]
@@ -150,7 +150,7 @@ public sealed class ResolverTests
 
         var result = await resolver.ResolveAsync(context);
 
-        result.Should().Be("from-query");
+        result.ShouldBe("from-query");
     }
 
     [Fact]
@@ -166,6 +166,6 @@ public sealed class ResolverTests
 
         var result = await resolver.ResolveAsync(context);
 
-        result.Should().BeNull();
+        result.ShouldBeNull();
     }
 }
