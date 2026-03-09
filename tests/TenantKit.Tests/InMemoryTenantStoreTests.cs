@@ -1,4 +1,4 @@
-using FluentAssertions;
+using Shouldly;
 using TenantKit.Core;
 using Xunit;
 
@@ -22,8 +22,8 @@ public sealed class InMemoryTenantStoreTests
     {
         var tenant = await _store.FindByIdAsync("acme");
 
-        tenant.Should().NotBeNull();
-        tenant!.Name.Should().Be("Acme Corp");
+        tenant.ShouldNotBeNull();
+        tenant!.Name.ShouldBe("Acme Corp");
     }
 
     [Fact]
@@ -31,7 +31,7 @@ public sealed class InMemoryTenantStoreTests
     {
         var tenant = await _store.FindByIdAsync("unknown");
 
-        tenant.Should().BeNull();
+        tenant.ShouldBeNull();
     }
 
     [Fact]
@@ -39,13 +39,13 @@ public sealed class InMemoryTenantStoreTests
     {
         var tenant = await _store.FindByIdAsync("ACME");
 
-        tenant.Should().NotBeNull();
-        tenant!.Id.Should().Be("acme");
+        tenant.ShouldNotBeNull();
+        tenant!.Id.ShouldBe("acme");
     }
 
     [Fact]
     public void All_ReturnsAllRegisteredTenants()
     {
-        _store.All.Should().HaveCount(2);
+        _store.All.Count().ShouldBe(2);
     }
 }

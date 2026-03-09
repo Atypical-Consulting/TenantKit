@@ -1,4 +1,4 @@
-using FluentAssertions;
+using Shouldly;
 using TenantKit.Core;
 using Xunit;
 
@@ -11,8 +11,8 @@ public sealed class TenantTests
     {
         var tenant = Tenant.Create("acme", "Acme Corp");
 
-        tenant.Id.Should().Be("acme");
-        tenant.Name.Should().Be("Acme Corp");
+        tenant.Id.ShouldBe("acme");
+        tenant.Name.ShouldBe("Acme Corp");
     }
 
     [Fact]
@@ -24,8 +24,8 @@ public sealed class TenantTests
             ["region"] = "eu-west-1"
         });
 
-        ((ITenant)tenant).Metadata["plan"].Should().Be("enterprise");
-        ((ITenant)tenant).Metadata["region"].Should().Be("eu-west-1");
+        ((ITenant)tenant).Metadata["plan"].ShouldBe("enterprise");
+        ((ITenant)tenant).Metadata["region"].ShouldBe("eu-west-1");
     }
 
     [Fact]
@@ -33,7 +33,7 @@ public sealed class TenantTests
     {
         var tenant = Tenant.Create("free", "Free User");
 
-        ((ITenant)tenant).Metadata.Should().BeEmpty();
+        ((ITenant)tenant).Metadata.ShouldBeEmpty();
     }
 
     [Fact]
@@ -42,6 +42,6 @@ public sealed class TenantTests
         var a = Tenant.Create("id1", "Name");
         var b = Tenant.Create("id1", "Name");
 
-        a.Should().Be(b);
+        a.ShouldBe(b);
     }
 }

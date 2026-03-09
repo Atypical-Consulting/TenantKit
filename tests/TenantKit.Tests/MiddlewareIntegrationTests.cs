@@ -1,5 +1,5 @@
 using System.Net;
-using FluentAssertions;
+using Shouldly;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
@@ -64,8 +64,8 @@ public sealed class MiddlewareIntegrationTests : IDisposable
         var response = await _client.SendAsync(request);
         var body = await response.Content.ReadAsStringAsync();
 
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
-        body.Should().Be("Acme Corp");
+        response.StatusCode.ShouldBe(HttpStatusCode.OK);
+        body.ShouldBe("Acme Corp");
     }
 
     [Fact]
@@ -74,8 +74,8 @@ public sealed class MiddlewareIntegrationTests : IDisposable
         var response = await _client.GetAsync("/tenant?tenant=globex");
         var body = await response.Content.ReadAsStringAsync();
 
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
-        body.Should().Be("Globex Inc");
+        response.StatusCode.ShouldBe(HttpStatusCode.OK);
+        body.ShouldBe("Globex Inc");
     }
 
     [Fact]
@@ -84,8 +84,8 @@ public sealed class MiddlewareIntegrationTests : IDisposable
         var response = await _client.GetAsync("/tenant");
         var body = await response.Content.ReadAsStringAsync();
 
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
-        body.Should().Be("no-tenant");
+        response.StatusCode.ShouldBe(HttpStatusCode.OK);
+        body.ShouldBe("no-tenant");
     }
 
     [Fact]
@@ -97,8 +97,8 @@ public sealed class MiddlewareIntegrationTests : IDisposable
         var response = await _client.SendAsync(request);
         var body = await response.Content.ReadAsStringAsync();
 
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
-        body.Should().Be("no-tenant");
+        response.StatusCode.ShouldBe(HttpStatusCode.OK);
+        body.ShouldBe("no-tenant");
     }
 
     [Fact]
@@ -110,7 +110,7 @@ public sealed class MiddlewareIntegrationTests : IDisposable
         var response = await _client.SendAsync(request);
         var body = await response.Content.ReadAsStringAsync();
 
-        body.Should().Be("acme");
+        body.ShouldBe("acme");
     }
 
     public void Dispose()
