@@ -1,3 +1,5 @@
+![TenantKit banner](.github/banner.png)
+
 # 🏢 TenantKit
 
 [![Build](https://github.com/Atypical-Consulting/TenantKit/actions/workflows/ci.yml/badge.svg)](https://github.com/Atypical-Consulting/TenantKit/actions/workflows/ci.yml)
