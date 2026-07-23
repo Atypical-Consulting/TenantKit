@@ -20,6 +20,7 @@ Built by [Atypical Consulting](https://atypical.garry-ai.cloud).
 - [Tech Stack](#tech-stack)
 - [Packages](#packages)
 - [Quick Start](#quick-start)
+- [Usage](#usage)
 - [Available Resolvers](#available-resolvers)
 - [Core Contracts](#core-contracts)
 - [Architecture](#architecture)
@@ -143,6 +144,26 @@ public class OrdersController : ControllerBase
     }
 }
 ```
+
+---
+
+## Usage
+
+The `samples/TenantKit.Demo` project is a minimal API wired up with `TenantKitModule` + `EndpointsModule` that resolves a tenant from the `X-Tenant-Id` header or a `?tenant=` query param on every request. Run it:
+
+```bash
+dotnet run --project samples/TenantKit.Demo
+```
+
+Then call it with or without a tenant identifier:
+
+```bash
+curl http://localhost:5000/info -H "X-Tenant-Id: acme"
+curl "http://localhost:5000/info?tenant=globex"
+curl http://localhost:5000/info          # no tenant — public
+```
+
+`/info` returns the resolved tenant's id/name/metadata (or an "anonymous" message if none was resolved), while `/data` and `/features` show how to branch application logic — data rows, feature flags — off `ITenantContext.Current.Id` once a tenant is in scope.
 
 ---
 
